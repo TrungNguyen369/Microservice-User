@@ -1,0 +1,139 @@
+# ASP.NET Core
+## Ignore build outputs
+bin/
+obj/
+
+# Visual Studio
+.vscode/
+.vs/
+.vscode/
+.vscode/*
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.log
+*.tlog
+*.idb
+*.pdb
+*.ipch
+*.aps
+*.ncb
+*.pch
+
+# Visual Studio Code
+.vscode/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Node
+node_modules/
+
+# JetBrains Rider
+.idea/
+.idea/*
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+
+# Publish output
+publish/
+
+# Npm package
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# DotNet
+*.swp
+*.lock.json
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Backup & report files from converting an old project file to a newer
+# Visual Studio version. Backup files are not needed, because we have git ;-)
+*.old
+*.orig
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# Exclude all files that are binaries and intermediate files for compiling
+*.exe
+*.dll
+*.so
+*.dylib
+*.lib
+*.a
+*.pdb
+*.ilk
+*.obj
+*.o
+*.cmd
+
+# Temporary files
+tmp/
+temp/
+
+# Rider project files
+.idea/
+
+# Rider specific content
+.idea_modules/
+.idea/assetManagement/
+.idea/codeStyles/
+.idea/codescan-problems/
+.idea/content/
+.idea/dictionaries/
+.idea/fileTemplates/
+.idea/find/FindInProject.xml
+.idea/inspectionProfiles/Default.xml
+.idea/inspectionProfiles/Profiles.xml
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/name.scopes/
+.idea/runConfigurations/
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/tasks.xml
+
+# SQL Server database files
+*.mdf
+*.ldf
+
+# Excel binary workbook
+*.xlsb
+
+# JetBrains Rider
+.idea/
+
+# End of https://www.toptal.com/developers/gitignore/api/visualstudio

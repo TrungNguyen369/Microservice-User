@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - JwtAuthClient</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">JwtAuthClient</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        async function refreshToken() {
+            const refreshToken = sessionStorage.getItem('RefreshToken');
+            if (!refreshToken) {
+                console.log("No refresh token found.");
+                return;
+            }
+
+            const response = await fetch('/api/auth/refresh-token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ refreshToken: refreshToken })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                sessionStorage.setItem('Token', data.token);
+                sessionStorage.setItem('RefreshToken', data.refreshToken);
+                console.log("Token refreshed.");
+            } else {
+                console.log("Failed to refresh token.");
+                sessionStorage.removeItem('Token');
+                sessionStorage.removeItem('RefreshToken');
+                window.location.href = '/Login'; // Chuyển hướng đến trang đăng nhập nếu làm mới token thất bại
+            }
+        }
+
+        async function checkTokenExpiration() {
+            const token = sessionStorage.getItem('Token');
+            if (!token) {
+                console.log("No token found.");
+                return;
+            }
+
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const expiration = payload.exp * 1000;
+            const now = Date.now();
+
+            if (expiration - now < 5 * 60 * 1000) { // Nếu token sắp hết hạn trong 5 phút
+                await refreshToken();
+            }
+        }
+
+        setInterval(checkTokenExpiration, 4 * 60 * 1000); // Kiểm tra mỗi 4 phút
+    </script>
+</body>
+</html>
